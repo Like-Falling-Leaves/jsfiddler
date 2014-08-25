@@ -26,7 +26,7 @@ You can create a new JS Fiddle programmatically using this API.  It is quite str
    var jsfiddler = require('jsfiddler');
    options = {
      html: '<body>This is an example jsfiddle</body>'
-     js: 'console.log("Example JS!",
+     js: 'console.log("Example JS!',
      css: 'body { font-family: Helvetica, Arial, sans-serif; }',
      link: 'http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css',
      script: 'http://code.jquery.com/jquery-1.11.1.min.js',
@@ -44,7 +44,7 @@ You can create a new JS Fiddle programmatically using this API.  It is quite str
 
 #### Accepted options
 
-1. **html** -- This is the inline HTML you want to use for the jsfiddle.  If this ends with .html or .jade, the code automatically converts this to the HTML.  Note that jsfiddle does not require html tags and so you should probably only start with the body tag here.
+1. **html** -- This is the inline HTML you want to use for the jsfiddle.  If this ends with .html or .jade, the code automatically converts this file to HTML.  Note that jsfiddle does not require *html* tag and so you should probably only start with the *body* tag here.
 
 2. **js** -- This is the inline JS you want to use for the jsfiddle.  If this ends with a .js, then browserify is used to generate the browserified (but not minified) version of the JS.  So, you can use requires within to support modules for example.
 
@@ -79,6 +79,7 @@ You can take screenshots of the fiddle result pane using the screenshot API.
       if (err) return console.error('Failed to create a screenshot', err);
       console.log('Created a screenshot, checkout /tmp/screenshot.png');
    });
+```
 
 #### Accepted options
 
