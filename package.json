@@ -1,15 +1,19 @@
 {
   "name": "jsfiddler",
   "description": "Library to create JS Fiddle values and screengrab results",
-  "maintainers": [{"name": "Like FallingLeaves", "email": "likefallingleaves@gmail.com"}],
-  "author": {"name": "Like FallingLeaves", "email": "likefallingleaves@gmail.com"},
-  "version": "0.0.1",
-  "repository": { "type": "git", "url": "git://github.com/likefallingleaves/jsfiddler" },
-  "license": "MIT",
-  "main": "./index.js",
-  "readmeFilename": "README.md",
+  "keywords": ["phantomjs", "jsfiddle", "fiddle", "screenshot"],
   "homepage": "https://github.com/likefallingleaves/jsfiddler",
   "bugs": { "url": "https://github.com/likefallingleaves/jsfiddler/issues" },
+  "license": "MIT",
+  "author": {"name": "Like FallingLeaves", "email": "likefallingleaves@gmail.com"},
+  "main": "./index.js",
+  "bin": {
+    "jsfiddler": "./index.js"
+  },
+  "maintainers": [{"name": "Like FallingLeaves", "email": "likefallingleaves@gmail.com"}],
+  "version": "0.0.2",
+  "repository": { "type": "git", "url": "git://github.com/likefallingleaves/jsfiddler.git" },
+  "readmeFilename": "README.md",
   "dependencies": {
     "jade" : "1.5.0",
     "lazy.js": "0.3.2",

@@ -19,15 +19,33 @@ function once(fn) {
   };
 }
 
+var params = ['url', 'image', 'quality'];
+var args = {};
+phantom.args.forEach(function (arg) {
+  params.forEach(function (key) {
+    if ((new RegExp('^' + key + '=', 'i')).test(arg)) {
+      args[key] = arg.replace(new RegExp('^' + key + '=', 'i'), ''); 
+      arg = '';
+      return false;
+    }
+  });
+});
+
 page.viewportSize = {width: 1920, height: 1080};
-page.open(phantom.args[0], function (status) {
+page.open(args.url, function (status) {
   if (status !== 'success') {
     stderr('Unable to fetch URL', status);
   } else {
     stderr('Fetched URL');
-    page.includeJs("http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js", once(screenshot));
+    ensureJQuery(screenshot);
   }
 });
+
+function ensureJQuery(callback) {
+  var needsJQuery = page.evaluate(function () { return !window.jQuery; });
+  if (!needsJQuery) return callback();
+  page.includeJs("http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js", once(callback));
+}
 
 function screenshot() {
   stderr('waiting a few seconds before screentshotting');
@@ -41,7 +59,7 @@ function screenshot() {
       };
     });
     stderr('Clip rect =', JSON.stringify(page.clipRect));
-    page.render(phantom.args[1], {quality: '90'});
+    page.render(args.image, {quality: args.quality || '90'});
     phantom.exit(0);
-  }, 1000);
+  }, 3000);
 }

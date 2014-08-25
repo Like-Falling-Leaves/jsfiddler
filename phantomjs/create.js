@@ -20,7 +20,7 @@ var stderr = function () {
   system.stderr.writeLine(Array.prototype.slice.call(arguments, 0).join(' '));
 };
 
-var params = ['html', 'css', 'js', 'link', 'script', 'title', 'description', 'normalize_css', 'dtd', 'wrap', 'json', 'png', 'jpeg'];
+var params = ['html', 'css', 'js', 'link', 'script', 'title', 'description', 'normalize_css', 'dtd', 'wrap', 'json', 'png', 'jpeg', 'slug', 'version'];
 var extensions = {
   'html': 'html',
   'css': 'css',
@@ -75,12 +75,14 @@ var data = {
   html: args.html || undefined,
   css: args.css || undefined,
   js: args.js || undefined,
-  resources: [args.link || '', args.script | ''].join(',').replace(/(^,|,$)/g, '') || undefined,
+  resources: [args.link || '', args.script || ''].join(',').replace(/(^,|,$)/g, '') || undefined,
   title: args.title || undefined,
   description: args.description || undefined,
   normalize_css: JSON.parse(args.normalize_css || 'false') ? 'yes' : 'no',
   dtd: args.dtd || undefined,
-  wrap: args.wrap || 'b'
+  wrap: args.wrap || 'b',
+  slug: args.slug || undefined,
+  version: args.version || undefined
 };
   
 stderr('params', JSON.stringify(data));
@@ -90,28 +92,19 @@ page.open(args.url || 'http://jsfiddle.net/api/post/library/pure/', 'post', quer
     stderr('unable to post!');
   } else {
     stderr('OK, posted successfully.  URL = ', page.url)
-    page.includeJs("http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js", once(savePage));
+    savePage();
   }
 });
 
-function once(fn) {
-  var onced = false;
-  return function () {
-    if (onced) return;
-    onced = true;
-    return fn.apply(this, Array.prototype.slice.call(arguments, 0));
-  };
-}
 
 function savePage() {
   var oldUrl = page.url;
   var clicked = page.evaluate(function () {
-    if (!$('#savenew').length) return false;
     var event = document.createEvent('MouseEvents');
     event.initMouseEvent('click', true, window, 1, 0, 0);
-    var elt = $('#savenew')[0];
-    elt.dispatchEvent(event);
-    return true;
+    var elt = document.querySelectorAll('#savenew')[0];
+    if (elt) elt.dispatchEvent(event);
+    return !!elt;
   });
 
   if (clicked) return getFiddleURL(oldUrl);
@@ -127,26 +120,6 @@ function getFiddleURL(oldUrl) {
     stderr("Page has loaded");
     stderr('URL = ', page.url);
     console.log(page.url);
-    page.includeJs("http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js", once(screenshots));
-  }
-}
-
-function screenshots() {
-  window.setTimeout(function () {
-    if (args.png) screenshot(args.png, 'png');
-    if (args.jpeg) screenshot(args.jpeg, 'jpeg');
     phantom.exit(0);
-  }, 15000);
-}
-
-function screenshot(fileName, format) {
-  page.clipRect = page.evaluate(function () {
-    var iframe = $('#result iframe');
-    return {
-      top: iframe.offset().top, left: iframe.offset().left,
-      width: iframe.outerWidth(), height: iframe.outerHeight()
-    };
-  });
-  stderr('Clip rect =', JSON.stringify(page.clipRect));
-  page.render(fileName, {format: format, quality: '90'});
+  }
 }
