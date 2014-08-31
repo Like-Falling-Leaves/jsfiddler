@@ -91,7 +91,7 @@ You can take screenshots of the fiddle result pane using the screenshot API.
 
 4. **trim** -- This is a boolean option that determines whether the screenshot should be trimmed down to remove any whitespace.  This is useful if the output div does not occupy the full space.  Note that this option needs 'convert' (provided by ImageMagick) to be in the path.
 
-## Command Line Uage.
+## Command Line Usage.
 
 Both the create and screenshot APIs are available via command line as well.  Note that it is recommended that you install this module globally if you intend to use it via command-line:
 

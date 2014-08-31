@@ -2,8 +2,8 @@
   "name": "jsfiddler",
   "description": "Library to create JS Fiddle values and screengrab results",
   "keywords": ["phantomjs", "jsfiddle", "fiddle", "screenshot"],
-  "homepage": "https://github.com/likefallingleaves/jsfiddler",
-  "bugs": { "url": "https://github.com/likefallingleaves/jsfiddler/issues" },
+  "homepage": "https://github.com/like-falling-leaves/jsfiddler",
+  "bugs": { "url": "https://github.com/like-falling-leaves/jsfiddler/issues" },
   "license": "MIT",
   "author": {"name": "Like FallingLeaves", "email": "likefallingleaves@gmail.com"},
   "main": "./index.js",
@@ -11,8 +11,8 @@
     "jsfiddler": "./index.js"
   },
   "maintainers": [{"name": "Like FallingLeaves", "email": "likefallingleaves@gmail.com"}],
-  "version": "0.0.2",
-  "repository": { "type": "git", "url": "git://github.com/likefallingleaves/jsfiddler.git" },
+  "version": "0.0.3",
+  "repository": { "type": "git", "url": "git://github.com/like-falling-leaves/jsfiddler.git" },
   "readmeFilename": "README.md",
   "dependencies": {
     "jade" : "1.5.0",
